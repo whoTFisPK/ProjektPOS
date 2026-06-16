@@ -1,0 +1,87 @@
+const int dir1 = 2; // DM556Y - direction
+const int step1 = 3; // DM556Y - step
+const int dir2 = 4; // DM542Y - direction
+const int step2 = 5; // DM542Y - ste5
+
+const int ledPin = 13; // Pin dla diody LE7
+
+void setup()
+{
+    // Inicjalizacja pinów
+    pinMode(dir1, OUTPUT);
+    pinMode(step1, OUTPUT);
+    pinMode(dir2, OUTPUT);
+    pinMode(step2, OUTPUT);
+    pinMode(ledPin, OUTPUT);
+
+    // Wyłączenie diody LED
+    digitalWrite(ledPin, LOW); // Wyłącz LED na początku9
+
+    // Ustawienie kierunku dla silników
+    digitalWrite(dir1, HIGH); // kierunek DM556Y
+    digitalWrite(dir2, LOW); // kierunek DM542Y3
+
+    // Rozpoczęcie komunikacji szeregowej
+    Serial.begin(115200);
+}
+
+void loop()
+{
+    // Sprawdzanie, czy są dostępne dane
+    if (Serial.available() > 0)
+    {
+    // Odczytaj dane
+    int steps_theta = Serial.parseInt(); // liczba kroków silnika 1
+    int steps_phi = Serial.parseInt(); // liczba kroków silnika 2
+    int dir_theta = Serial.parseInt(); // kierunek silnika 1
+    int dir_phi = Serial.parseInt(); // kierunek silnika 28
+    
+    if (Serial.read() == '\n')
+    {
+        // Zmiana kierunku silnika 1
+        if (dir_theta == 0)
+        {
+        digitalWrite(dir1, HIGH);
+        }
+        else
+        {
+        digitalWrite(dir1, LOW);
+        }
+    
+        // Zmiana kierunku silnika 2
+        if (dir_phi == 0)
+        {
+        digitalWrite(dir2, LOW);
+        }
+        else
+        {
+        digitalWrite(dir2, HIGH);
+        }
+        delay(1000);
+        
+        // Sterowanie silnikiem 2 (steps_phi)
+        for (int i = 0; i < steps_phi; i++)
+        {
+            digitalWrite(step2, HIGH);
+            delayMicroseconds(1000);
+            digitalWrite(step2, LOW);
+            delayMicroseconds(1000);
+        }
+        delay(1000);
+        
+        // Sterowanie silnikiem 1 (steps_theta)
+        for (int i = 0; i < steps_theta; i++)
+        {
+            digitalWrite(step1, HIGH);
+            delayMicroseconds(1000);
+            digitalWrite(step1, LOW);
+            delayMicroseconds(1000);
+        }
+        
+        delay(1000);
+        
+        // Wysyłanie informacji o zakończeniu
+        Serial.println("done");
+        }
+    }
+}
