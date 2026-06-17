@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dokumentacja API — Automatyczny Pomiar HRTF</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --bg-color: #f8f9fa;
+            --text-color: #333;
+            --code-bg: #f4f4f4;
+            --border-color: #ddd;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 20px 40px;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 24px;
+            font-weight: 500;
+        }
+        header p {
+            margin: 5px 0 0 0;
+            opacity: 0.8;
+            font-size: 14px;
+        }
+        .container {
+            display: flex;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        nav {
+            width: 280px;
+            padding-right: 30px;
+            border-right: 1px solid var(--border-color);
+            position: sticky;
+            top: 20px;
+            height: fit-content;
+        }
+        nav h3 {
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #7f8c8d;
+            margin-bottom: 10px;
+        }
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        nav ul li {
+            margin-bottom: 8px;
+        }
+        nav ul li a {
+            color: var(--secondary-color);
+            text-decoration: none;
+            font-size: 15px;
+        }
+        nav ul li a:hover {
+            text-decoration: underline;
+        }
+        main {
+            flex: 1;
+            padding-left: 40px;
+        }
+        .module-desc {
+            background: white;
+            padding: 20px;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+            margin-bottom: 30px;
+        }
+        .section-title {
+            font-size: 20px;
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 5px;
+            margin-top: 40px;
+            color: var(--primary-color);
+        }
+        .item {
+            background: white;
+            padding: 20px;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+            margin-bottom: 20px;
+        }
+        .item-header {
+            display: flex;
+            align-items: baseline;
+            margin-bottom: 15px;
+        }
+        .item-name {
+            font-family: "Courier New", Courier, monospace;
+            font-size: 18px;
+            font-weight: bold;
+            color: #c0392b;
+        }
+        .item-type {
+            font-size: 12px;
+            background: #e74c3c;
+            color: white;
+            padding: 2px 6px;
+            border-radius: 3px;
+            margin-left: 10px;
+            font-weight: bold;
+        }
+        .item-def {
+            font-family: "Courier New", Courier, monospace;
+            background: var(--code-bg);
+            padding: 10px;
+            border-left: 4px solid var(--secondary-color);
+            margin: 10px 0;
+            font-size: 14px;
+            overflow-x: auto;
+        }
+        .docstring {
+            margin-top: 15px;
+            font-size: 15px;
+            color: #444;
+        }
+        .params-title {
+            font-weight: bold;
+            margin-top: 15px;
+            font-size: 14px;
+            color: var(--primary-color);
+        }
+        .params-list {
+            margin: 5px 0 15px 20px;
+            font-size: 14px;
+        }
+        .params-list span {
+            font-family: "Courier New", Courier, monospace;
+            font-weight: bold;
+            color: #2980b9;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Moduł: hrtf_measurement_system</h1>
+    <p>Automatycznie wygenerowana dokumentacja kodu źródłowego (Standard pdoc v0.10.x)</p>
+</header>
+
+<div class="container">
+    <nav>
+        <h3>Spis treści</h3>
+        <ul>
+            <li><a href="#module-info">Opis modułu</a></li>
+            <li><a href="#variables">Zmienne globalne</a></li>
+            <li><a href="#functions">Funkcje i metody API</a></li>
+            <li><a href="#workflow">Algorytm sterowania</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <section id="module-info" class="module-desc">
+            <h2>Opis modułu sygnatury skryptu</h2>
+            <p>Skrypt realizuje w pełni zautomatyzowane pozycjonowanie geometryczne oraz akwizycję i cyfrowe przetwarzanie sygnałów akustycznych w celu wyznaczenia odpowiedzi impulsowych HRTF (Head-Related Transfer Function). Program wyznacza punkty pomiarowe na sferze, nawiązuje komunikację sprzętową w standardzie RS-232/UART z pozycjonerem opartym o mikrokontroler Arduino oraz przetwarza zarejestrowane sygnały metodą dekonwolucji sweep-sine.</p>
+            <p><strong>Wykorzystywane biblioteki zewnętrzne:</strong> <code>numpy</code>, <code>serial</code>, <code>matplotlib</code>, <code>sounddevice</code>, <code>soundfile</code>, <code>scipy.signal</code>.</p>
+        </section>
+
+        <section id="variables">
+            <div class="section-title">Zmienne globalne i konfiguracyjne</div>
+            
+            <div class="item">
+                <div class="item-header">
+                    <div class="item-name">N</div>
+                    <div class="item-type">Zmienna Int</div>
+                </div>
+                <div class="docstring">
+                    Wymagana przybliżona liczba punktów pomiarowych do rozmieszczenia na sferze jednostkowej. Wartość bazowa: <code>20</code>.
+                </div>
+            </div>
+
+            <div class="item">
+                <div class="item-header">
+                    <div class="item-name">steps_per_turn</div>
+                    <div class="item-type">Zmienna Int</div>
+                </div>
+                <div class="docstring">
+                    Rozdzielczość mechaniczna układu pozycjonowania. Określa liczbę kroków fizycznych sterownika silnika krokowego potrzebną do wykonania pełnego obrotu osi (360 stopni). Wartość bazowa: <code>3200</code>.
+                </div>
+            </div>
+
+            <div class="item">
+                <div class="item-header">
+                    <div class="item-name">arduino_port &amp; baudrate</div>
+                    <div class="item-type">Konfiguracja I/O</div>
+                </div>
+                <div class="docstring">
+                    Parametry połączenia szeregowego. Port (domyślnie <code>"COM4"</code>) oraz prędkość transmisji bitowej ustalona na poziomie <code>115200 bps</code> zapewniają stabilną wymianę ramek poleceń z mikrokontrolerem.
+                </div>
+            </div>
+        </section>
+
+        <section id="functions">
+            <div class="section-title">Funkcje i metody API</div>
+
+            <div class="item">
+                <div class="item-header">
+                    <div class="item-name">measure_ir_sweep(...)</div>
+                    <div class="item-type">Funkcja we/wy i DSP</div>
+                </div>
+                <div class="item-def">
+                    def measure_ir_sweep(sweep_file="Sweep-20-20000-1s.wav", sweep_rev_file="Sweep-20-20000-1s-rev.wav", channels_in=2, input_device=1, output_device=3, samplerate=48000, point_id=None, pre_ms=0.3, post_ms=15)
+                </div>
+                <div class="docstring">
+                    <p>Główna procedura pomiarowa. Odpowiada za jednoczesne odtwarzanie sygnału testowego oraz rejestrację odpowiedzi układu, a także za późniejsze operacje matematyczne (dekonwolucja, ekstrakcja, okienkowanie czasowe).</p>
+                    
+                    <div class="params-title">Parametry wejściowe (Arguments):</div>
+                    <ul class="params-list">
+                        <li><span>sweep_file (str)</span>: Ścieżka do pliku wejściowego z sygnałem pobudzenia log-sweep.</li>
+                        <li><span>sweep_rev_file (str)</span>: Ścieżka do pliku z filtrem odwrotnym do operacji splotu.</li>
+                        <li><span>channels_in (int)</span>: Liczba kanałów wejściowych rejestracji (standardowo 2 mikrofony douszne).</li>
+                        <li><span>input_device / output_device (int)</span>: Indeksy sprzętowe karty dźwiękowej w systemie.</li>
+                        <li><span>samplerate (int)</span>: Częstotliwość próbkowania audio w Hz (zalecane 48000 Hz).</li>
+                        <li><span>point_id (int)</span>: Aktualny numer identyfikacyjny punktu pomiarowego używany do zapisu plików RAW.</li>
+                        <li><span>pre_ms (float)</span>: Margines czasu przed początkiem odpowiedzi impulsowej (w milisekundach).</li>
+                        <li><span>post_ms (float)</span>: Długość okna czasowego analizy odpowiedzi właściwej (w milisekundach).</li>
+                    </ul>
+
+                    <div class="params-title">Zwracane obiekty (Returns):</div>
+                    <ul class="params-list">
+                        <li><span>tuple(np.ndarray, np.ndarray)</span>: Zwraca znormalizowane odpowiedzi impulsowe HRIR lewego i prawego kanału w formacie float32, odcięte od odbić pomieszczenia.</li>
+                    </ul>
+
+                    <div class="params-title">Algorytm matematyczny wewnątrz funkcji:</div>
+                    <ol style="font-size: 14px; color: #555;">
+                        <li>Asynchroniczny zapis strumienia audio komendą <code>sd.playrec()</code>.</li>
+                        <li>Wyznaczenie surowej odpowiedzi za pomocą splotu liniowego: $h(t) = y(t) * f_{inv}(t)$ za pomocą metody <code>scipy.signal.convolve</code>.</li>
+                        <li>Automatyczna detekcja progu progowego amplitudy (10% wartości maksymalnej) w celu lokalizacji bezpośredniej fali dźwiękowej ($t_0$).</li>
+                        <li>Bramkowanie czasowe w celu eliminacji odbić od ścian i struktur pozycjonera.</li>
+                        <li>Wygładzanie zboczy sygnału oknem czasowym Tukey'a (parametrem <code>alpha=0.25</code>) i końcowa normalizacja amplitudy do wartości 1.0.</li>
+                    </ol>
+                </div>
+            </div>
+        </section>
+
+        <section id="workflow">
+            <div class="section-title">Główny algorytm sterowania (Workflow)</div>
+            <div class="item" style="border-left: 4px solid #1abc9c;">
+                <p>Skrypt realizuje przetwarzanie sekwencyjne zgodnie z poniższym schematem logicznym:</p>
+                <ol style="font-size: 14px; padding-left: 20px;">
+                    <li><strong>Podział sfery pomiarowej:</strong> Algorytm oblicza równomierne rozłożenie punktów na sferze na podstawie algorytmu opartego na gęstości powierzchniowej sfery, tworząc listy współrzędnych <code>ThetaList</code> oraz <code>PhiList</code>.</li>
+                    <li><strong>Inicjalizacja sprzętu:</strong> Otwierany jest port szeregowy oraz wprowadzane opóźnienie 2 sekund na stabilizację po resecie sprzętowym kontrolera Arduino.</li>
+                    <li><strong>Pętla pozycjonowania i akwizycji:</strong>
+                        <ul>
+                            <li>Obliczenie przyrostu kątów ($\Delta\theta$, $\Delta\phi$) w stosunku do poprzedniej lokalizacji.</li>
+                            <li>Przeliczenie kątów na ekwiwalent kroków silnika ze znakiem kierunku (0 lub 1).</li>
+                            <li>Wysłanie sformatowanej ramki tekstowej: <code>"kroki_theta,kroki_phi,dir_theta,dir_phi\n"</code>.</li>
+                            <li>Oczekiwanie w pętli blokującej na odpowiedź zwrotną tekstową o treści <code>"done"</code>.</li>
+                            <li>Wywołanie funkcji przetwarzania sygnału <code>measure_ir_sweep</code> dla zorientowanego punktu przestrzennego.</li>
+                        </ul>
+                    </li>
+                    <li><strong>Zapis danych i zamknięcie sesji:</strong> Wynikowe pliki HRIR zapisywane są automatycznie jako znormalizowane próbki WAV, a port szeregowy zostaje bezpiecznie zwolniony procedurą <code>ser.close()</code>.</li>
+                </ol>
+            </div>
+        </section>
+    </main>
+</div>
+
+</body>
+</html>
