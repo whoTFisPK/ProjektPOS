@@ -2,4 +2,5 @@ Projekt przedstawia realizację układu pomiarowego przeznaczonego do wyznaczani
 
 
 Piotr Krzyżanowski - Maintainer
+
 Hubert Kowalski
