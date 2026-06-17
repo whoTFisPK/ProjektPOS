@@ -1,7 +1,5 @@
 Projekt przedstawia realizację układu pomiarowego przeznaczonego do wyznaczania funkcji przenoszenia związanych z głową (HRTF – Head-Related Transfer Function). Zaprojektowany system składa się z mechanizmu pozycjonowania symulatora głowy sterowanego silnikami krokowymi, toru audio obejmującego źródło dźwięku oraz układ rejestracji sygnałów, a także oprogramowania realizującego automatyzację całej procedury pomiarowej. Zaimplementowano algorytm generowania punktów pomiarowych na powierzchni kuli oraz procedurę wyznaczania odpowiedzi impulsowych. Poprawność działania układu zweryfikowano eksperymentalnie poprzez wykonanie pomiarów w komorze bezechowej dla wybranych kierunków przestrzennych. Opracowane rozwiązanie umożliwia definiowanie rozdzielczości kątowej pomiarów i stanowi funkcjonalną, nisko kosztową alternatywę dla profesjonalnych systemów pomiarowych HRTF.
 
 
-Piotr Krzyżanowski
+Piotr Krzyżanowski - Maintainer
 Hubert Kowalski
-
-KTO JEST MAINTAINEREM?
