@@ -1,3 +1,10 @@
+"""
+Skrypt realizuje w pełni zautomatyzowane pozycjonowanie geometryczne oraz akwizycję
+i cyfrowe przetwarzanie sygnałów akustycznych w celu wyznaczenia odpowiedzi impulsowych HRTF.
+Współpracuje z układem Arduino przez port UART i przetwarza sygnały metodą dekonwolucji sweep-sine.
+
+Wykorzystywane biblioteki zewnętrzne: numpy, serial, matplotlib, sounddevice, soundfile, scipy.signal.
+"""
 import numpy as np
 import serial
 import time
@@ -73,16 +80,35 @@ plt.show()
 
 # POMIAR
 def measure_ir_sweep(
-        sweep_file="Sweep-20-20000-1s.wav",
-        sweep_rev_file="Sweep-20-20000-1s-rev.wav",
-        channels_in=2,
-        input_device=1,
-        output_device=3,
-        samplerate=48000,
-        point_id=None,
-        pre_ms=0.3,
-        post_ms=15):
+    sweep_file="Sweep-20-20000-1s.wav",
+    sweep_rev_file="Sweep-20-20000-1s-rev.wav",
+    channels_in=2,
+    input_device=1,
+    output_device=3,
+    samplerate=48000,
+    point_id=None,
+    pre_ms=0.3,
+    post_ms=15):
     
+    """
+    Główna procedura pomiarowa. Odpowiada za jednoczesne odtwarzanie sygnału testowego
+    oraz rejestrację odpowiedzi układu, a także za późniejsze operacje matematyczne 
+    (dekonwolucja, ekstrakcja, okienkowanie czasowe).
+
+    Argumenty:
+    sweep_file (str): Ścieżka do pliku wejściowego z sygnałem pobudzenia log-sweep.
+    sweep_rev_file (str): Ścieżka do pliku z filtrem odwrotnym do operacji splotu.
+    channels_in (int): Liczba kanałów wejściowych rejestracji (standardowo 2).
+    input_device (int): Indeks sprzętowy karty dźwiękowej (wejście).
+    output_device (int): Indeks sprzętowy karty dźwiękowej (wyjście).
+    samplerate (int): Częstotliwość próbkowania audio w Hz.
+    point_id (int): Aktualny numer identyfikacyjny punktu pomiarowego.
+    pre_ms (float): Margines czasu przed początkiem odpowiedzi impulsowej (w ms).
+    post_ms (float): Długość okna czasowego analizy odpowiedzi właściwej (w ms).
+
+    Zwraca:
+    tuple(np.ndarray, np.ndarray): Znormalizowane odpowiedzi impulsowe HRIR lewego i prawego kanału.
+    """
     sweep, sr = sf.read(sweep_file, dtype="float32")
     sweep_rev, sr2 = sf.read(sweep_rev_file, dtype="float32")
     
@@ -97,7 +123,7 @@ def measure_ir_sweep(
     time.sleep(1)
     print("Odtwarzanie sygnału i nagrywanie...")
     recorded = sd.playrec(data_out, samplerate=samplerate,
-channels=channels_in, dtype="float32")
+    channels=channels_in, dtype="float32")
     sd.wait()
     print("Nagranie zakończone.")
 
