@@ -28,11 +28,11 @@ Projekt wykorzystuje następujący stos technologiczny:
 Prace nad dostosowaniem oprogramowania do wymogów przedmiotu POS zostały podzielone w następujący sposób:
 
 **Piotr (Maintainer):**
-1. Zarządzanie repozytorium GitHub, utrzymanie czystości gałęzi głównej oraz ewidencja zadań w systemie Issues.
-2. Zaimplementowanie testów jednostkowych (`pytest`) dla krytycznych operacji logicznych i matematycznych.
-3. Analiza wydajności za pomocą profilera (`cProfile`) oraz ewentualna optymalizacja zidentyfikowanych wąskich gardeł w kodzie.
+1. Założenie i zarządzanie repozytorium GitHub, utrzymanie czystości gałęzi głównej oraz ewidencja zadań w systemie śledzenia błędów (GitHub Issues).
+2. Zaplanowanie struktury repozytorium uwzględniającej specyfikę środowiska i języka programowania.
+3. Sporządzenie i redakcja końcowego sprawozdania z projektu oraz weryfikacja specyfikacji funkcjonalnej.
 
 **Hubert:**
 1. Refaktoryzacja obecnego skryptu liniowego na pełnoprawną architekturę zorientowaną obiektowo (OOP), zgodnie ze stworzonym diagramem klas.
 2. Opracowanie szczegółowej dokumentacji API (docstringi) i wygenerowanie ostatecznej dokumentacji w formacie HTML.
-3. Utrzymanie poprawnej komunikacji z warstwą sprzętową (Arduino i mikser audio) po zmianie struktury kodu.
+3. Implementacja testów jednostkowych (`pytest`) w celu walidacji kluczowych elementów oprogramowania oraz analiza wydajności za pomocą profilera (`cProfile`) w celu wykrycia i optymalizacji hot spotów.
